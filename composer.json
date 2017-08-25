@@ -1,7 +1,7 @@
 {
     "name": "elevenlab/php-sdk-boilerplate",
     "description": "PHP boilerplate library to help integrate SDKs for a generic API system",
-    "type": "library",
+    "type": "project",
     "license": "GPL v3",
     "keywords": ["php", "sdk", "boilerplate"],
     "authors": [
