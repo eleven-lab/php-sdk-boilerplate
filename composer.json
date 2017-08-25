@@ -1,0 +1,36 @@
+{
+    "name": "elevenlab/php-sdk-boilerplate",
+    "description": "PHP boilerplate library to help integrate SDKs for a generic API system",
+    "type": "library",
+    "license": "GPL v3",
+    "keywords": ["php", "sdk", "boilerplate"],
+    "authors": [
+        {
+            "name": "Valerio Cervo",
+            "email": "v.cervo.90@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/cache": "^5.4",
+        "guzzlehttp/guzzle": "^6.1",
+        "illuminate/contracts": "^5.4",
+        "illuminate/container": "^5.4",
+        "illuminate/filesystem": "^5.4",
+        "nesbot/carbon": "^1.22",
+        "illuminate/validation": "^5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*",
+        "psy/psysh": "@stable",
+        "fzaninotto/faker": "^1.6",
+        "mockery/mockery": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "ElevenLab\\API\\Boilerplate\\": "src/",
+            "ElevenLab\\API\\Boilerplate\\Tests\\": "tests/"
+        }
+    }
+}
