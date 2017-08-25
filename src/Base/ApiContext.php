@@ -1,8 +1,8 @@
-<?php namespace ElevenLab\API\Boilerplate;
+<?php namespace SDK\Base;
 
 /**
  * Class ApiContext
- * @package itTaxi\API\Connection
+ * @package SDK\API\Connection
  */
 abstract class ApiContext
 {
@@ -65,8 +65,14 @@ abstract class ApiContext
         $this->base_url = $config[$this->mode]['base_url'];
         $this->lang_resource = $config['lang']['resource'];
         $this->lang_locale = $config['lang']['locale'];
-        $this->credentials = $config[$this->mode]['credentials'];
+        $this->credentials = $this->buildCredentials($config);
     }
+
+    /**
+     * @param array $config Configuration file as an associative array
+     * @return Credentials
+     */
+    protected abstract function buildCredentials(array $config);
 
     /**
      * @return string
@@ -133,7 +139,7 @@ abstract class ApiContext
     }
 
     /**
-     * @return array
+     * @return Credentials
      */
     public function getCredentials()
     {

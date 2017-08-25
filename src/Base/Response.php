@@ -1,6 +1,6 @@
 <?php
 
-namespace ElevenLab\API\Boilerplate;
+namespace SDK\Base;
 
 use GuzzleHttp\Psr7\Response as Psr7Response;
 use itTaxi\SDK\Exceptions\ResponseException;

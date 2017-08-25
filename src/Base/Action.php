@@ -1,18 +1,19 @@
-<?php namespace ElevenLab\API\Boilerplate;
+<?php namespace SDK\Base;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Cache\Repository;
-use GuzzleHttp\Psr7\Request as Psr7Request;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
-use Illuminate\Translation\Translator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
-use itTaxi\SDK\Exceptions\ArgumentsException;
-use Illuminate\Validation\Factory as ValidationFactory;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
-use itTaxi\SDK\Exceptions\ResponseException;
-use itTaxi\SDK\Exceptions\UrlParametersException;
-use itTaxi\SDK\Objects\Error;
+use Illuminate\Translation\Translator;
+use Illuminate\Contracts\Cache\Repository;
+use Mockery\Mock;
+use SDK\Base\Exceptions\ResponseException;
+use GuzzleHttp\Psr7\Request as Psr7Request;
+use SDK\Base\Exceptions\ArgumentsException;
+use SDK\Base\Exceptions\UrlParametersException;
+use Illuminate\Validation\Factory as ValidationFactory;
 
 /**
  * Class Action
@@ -180,6 +181,30 @@ abstract class Action implements FakeableAction
     }
 
     /**
+     * Checks if the action has the specified url parameter
+     *
+     * @param $key
+     * @return bool
+     */
+    public function hasUrlParameter($key)
+    {
+
+        return Arr::has($this->url_params, [$key]);
+
+    }
+
+    /**
+     * Sets the specified url parameter to the provided value
+     *
+     * @param $key
+     * @param $value
+     */
+    public function setUrlParameter($key, $value)
+    {
+        Arr::set($this->url_params, $key, $value);
+    }
+
+    /**
      * @param int|Carbon $timestamp
      * @return int
      */
@@ -202,14 +227,6 @@ abstract class Action implements FakeableAction
     {
         return $request;
     }
-
-    /**
-     * Flushed cached authentication credentials if
-     * present
-     *
-     * @return mixed
-     */
-    abstract protected function flushAuthentication();
 
     protected function getHttpAuthCredentials()
     {
@@ -297,9 +314,27 @@ abstract class Action implements FakeableAction
         }
     }
 
+    /**
+     * Builds the request payload
+     *
+     * @return array
+     */
     protected function buildPayload()
     {
         return $this->request_params;
+    }
+
+    protected function buildUrl()
+    {
+
+        $url = $this->getEndpoint();
+        foreach($this->url_params as $urlParameter => $value)
+        {
+            $url = str_replace('{' . $urlParameter . '}', $value, $url);
+        }
+
+        return $url;
+
     }
 
     /**
@@ -311,19 +346,7 @@ abstract class Action implements FakeableAction
         $this->validateUrlParameters($this->url_params, $this->getUrlParametersRules());
         $this->validateBodyParameters($this->request_params, $this->getRequestParamsRules());
 
-        try {
-            $this->response = $this->makeRequest()->run();
-        }catch(ResponseException $exception) {
-            /*
-             * If the token has expired we fetch the token one more time and we execute the action again
-             */
-            if($exception->getApiError()->error_code === Error::EXPIRED_TOKEN){
-                $this->flushAuthentication();
-                return $this->send();
-            }else {
-                throw $exception;
-            }
-        }
+        $this->response = $this->makeRequest()->run();
 
         if(!$this->response->isEmpty()) {
             $parsed_response = $this->parseRawBody(
@@ -363,7 +386,7 @@ abstract class Action implements FakeableAction
      * @param int $statusCode
      * @param string $responseBody
      *
-     * @return Request
+     * @return Mock
      */
     protected function makeRequestFake($statusCode, $responseBody){
 
@@ -374,12 +397,51 @@ abstract class Action implements FakeableAction
             $this->context->getTimeout(),
             $this->getPayloadType(),
             $this->getMethod(),
-            $this->getEndpoint(),
+            $this->buildUrl(),
             $this->getHeaders(),
             $this->buildPayload(),
             $this->getAuthenticateCallable(),
             $this->getHttpAuthCredentials()
         );
+
+    }
+
+    /**
+     * Check if we are trying to get an url parameter
+     *
+     * @param $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+
+        if(!method_exists($this, 'get' . Str::studly($key))) {
+
+            return $this->getUrlParameter($key);
+
+        }else{
+
+            return $this->$key();
+
+        }
+
+    }
+
+    /**
+     * Check if we are trying to set an url parameter
+     *
+     * @param $key
+     * @param $value
+     * @throws \Exception
+     */
+    public function __set($key, $value)
+    {
+
+        if(!method_exists($this, 'set' . Str::studly($key)) && $this->hasUrlParameter($key)) {
+            $this->setUrlParameter($key, $value);
+        }else{
+            throw new \Exception("Undefined property '$key' in class " . get_class($this));
+        }
 
     }
 }

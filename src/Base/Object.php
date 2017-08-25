@@ -1,5 +1,5 @@
 <?php
-namespace ElevenLab\API\Boilerplate;
+namespace SDK\Base;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;

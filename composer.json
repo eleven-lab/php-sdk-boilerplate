@@ -29,8 +29,8 @@
     },
     "autoload": {
         "psr-4": {
-            "ElevenLab\\API\\Boilerplate\\": "src/",
-            "ElevenLab\\API\\Boilerplate\\Tests\\": "tests/"
+            "SDK\\": "src/",
+            "SDK\\Tests\\": "tests/"
         }
     }
 }

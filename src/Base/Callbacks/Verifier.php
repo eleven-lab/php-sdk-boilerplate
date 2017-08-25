@@ -1,6 +1,6 @@
 <?php
 
-namespace ElevenLab\API\Boilerplate\Callbacks;
+namespace SDK\Base\Callbacks;
 
 
 class Verifier implements VerifyCallbacks

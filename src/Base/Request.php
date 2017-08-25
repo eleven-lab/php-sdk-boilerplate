@@ -1,4 +1,4 @@
-<?php namespace ElevenLab\API\Boilerplate;
+<?php namespace SDK\Base;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\HandlerStack;

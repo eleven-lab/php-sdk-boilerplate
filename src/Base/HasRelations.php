@@ -1,6 +1,6 @@
 <?php
 
-namespace ElevenLab\API\Boilerplate;
+namespace SDK\Base;
 
 
 trait HasRelations

@@ -1,8 +1,8 @@
-<?php namespace ElevenLab\API\Boilerplate;
+<?php namespace SDK\Base;
 
+use SDK\Base\Exceptions\BaseException;
 use Illuminate\Contracts\Cache\Repository;
-use itTaxi\SDK\Exceptions\BaseException;
-use itTaxi\SDK\Exceptions\ArgumentsException;
+use SDK\Base\Exceptions\ArgumentsException;
 
 /**
  * Class API
@@ -49,7 +49,7 @@ class Factory
      * @param int $statusCode
      * @param array $responseBody
      *
-     * @return \itTaxi\SDK\Action
+     * @return \SDK\Base\Action
      */
     public function fake($entity, $statusCode, array $responseBody)
     {
@@ -61,7 +61,7 @@ class Factory
     /**
      * @param $entity
      *
-     * @return \itTaxi\SDK\Action
+     * @return \SDK\Base\Action
      */
     public function make($entity)
     {

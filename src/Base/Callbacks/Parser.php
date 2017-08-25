@@ -1,10 +1,10 @@
 <?php
 
-namespace ElevenLab\API\Boilerplate\Callbacks;
+namespace SDK\Base\Callbacks;
 
 
 use Illuminate\Support\Arr;
-use itTaxi\SDK\ApiContext;
+use itTaxi\SDK\ExampleApiContext;
 use itTaxi\SDK\Exceptions\CallbackVerificationException;
 use itTaxi\SDK\Exceptions\CannotParseCallbackException;
 use itTaxi\SDK\Exceptions\UnknownCallbackType;
@@ -13,15 +13,15 @@ class Parser implements ParseCallbacks
 {
 
     /**
-     * @var ApiContext
+     * @var ExampleApiContext
      */
     protected $context;
 
     /**
      * Parser constructor.
-     * @param ApiContext $context
+     * @param ExampleApiContext $context
      */
-    public function __construct(ApiContext $context)
+    public function __construct(ExampleApiContext $context)
     {
         $this->context = $context;
     }
@@ -74,7 +74,7 @@ class Parser implements ParseCallbacks
     }
 
     /**
-     * @return ApiContext
+     * @return ExampleApiContext
      */
     public function getContext()
     {
