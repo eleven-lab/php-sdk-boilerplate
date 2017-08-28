@@ -1,8 +1,9 @@
 <?php namespace SDK\Base\Exceptions;
 
-class UnknownCallbackType extends BaseException
+
+class UnsupportedMimeType extends BaseException
 {
-    protected $message = "Cannot parse callback: unknown type";
+    protected $message = "Unsupported MIME type";
 
     /**
      * Class constructor.
@@ -11,6 +12,6 @@ class UnknownCallbackType extends BaseException
     public function __construct($type)
     {
         $message = $this->message . ' \'' . $type . '\'';
-        parent::__construct($message, BaseException::UNKNOWN_CALLBACK_TYPE);
+        parent::__construct($message, BaseException::UNSUPPORTED_MIME_TYPE);
     }
 }

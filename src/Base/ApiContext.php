@@ -91,7 +91,7 @@ abstract class ApiContext
      */
     public function getBaseUrl()
     {
-        return $this->base_url . '/' . (empty($this->api_version) ? '' : "{$this->api_version}/");
+        return $this->base_url . '/';
     }
 
     /**

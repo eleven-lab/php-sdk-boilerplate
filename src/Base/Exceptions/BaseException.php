@@ -9,6 +9,7 @@ class BaseException extends \Exception
     const CANNOT_PARSE_CALLBACK = 0x0004;
     const UNKNOWN_CALLBACK_TYPE = 0x0005;
     const API_REQUEST_ERROR = 0x0006;
+    const UNSUPPORTED_MIME_TYPE = 0x0007;
     const UNKNOWN_ERROR = 0x1000;
 
     public function __construct($message = "", $error_code = self::UNKNOWN_ERROR, $exception = null)

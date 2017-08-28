@@ -1,9 +1,5 @@
 <?php namespace SDK\Base\Exceptions;
 
-/**
- * Class APIArgumentsException
- * @package itTaxi\Exceptions
- */
 class ArgumentsException extends BaseException
 {
     /**

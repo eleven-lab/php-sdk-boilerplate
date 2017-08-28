@@ -65,6 +65,16 @@ abstract class Object implements Parsable, Relationable, SelfValidates, Arrayabl
         return $object;
     }
 
+    public static function parseArray(array $objects)
+    {
+
+        $parsedObjects = array_map(function($item) {
+            return self::parse($item);
+        }, $objects);
+
+        return collect($parsedObjects);
+    }
+
     /**
      * @param string $radix
      * @return array

@@ -3,6 +3,7 @@
 namespace SDK\Actions;
 
 
+use Illuminate\Support\Collection;
 use SDK\Objects\Kitten;
 
 class GetKittens extends Action
@@ -30,11 +31,9 @@ class GetKittens extends Action
      * Leaf classes must override that Attribute with the validation rules for the response parameters
      * @return array
      */
-    protected function getResponseParamsRules()
+    public function getResponseParamsRules()
     {
-        return array_merge([
-            'kittens' => 'required|array'
-        ], Kitten::getValidationRules('kittens.*'));
+        return Kitten::getRules('*');
     }
 
     /**
@@ -61,10 +60,10 @@ class GetKittens extends Action
     /**
      * Parse the response, should be useful to instantiate an object.
      * @param $response
-     * @return Kitten
+     * @return Collection
      */
     protected function parseResponse(array $response)
     {
-        return Kitten::parse($response['kittens']);
+        return Kitten::parseArray($response);
     }
 }

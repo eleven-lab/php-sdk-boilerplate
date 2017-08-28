@@ -36,7 +36,7 @@ class GetKitten extends Action
      */
     protected function getResponseParamsRules()
     {
-        return Kitten::getRules('kitten');
+        return Kitten::getRules();
     }
 
     /**
@@ -69,6 +69,6 @@ class GetKitten extends Action
      */
     protected function parseResponse(array $response)
     {
-        return Kitten::parse($response['kitten']);
+        return Kitten::parse($response);
     }
 }

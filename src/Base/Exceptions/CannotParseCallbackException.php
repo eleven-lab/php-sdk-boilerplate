@@ -1,9 +1,5 @@
 <?php namespace SDK\Base\Exceptions;
 
-/**
- * Class CannotParseCallbackException
- * @package itTaxi\SDK\Exceptions
- */
 class CannotParseCallbackException extends BaseException
 {
     protected $message = "Cannot parse callback: unknown format";

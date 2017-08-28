@@ -12,8 +12,12 @@ use Mockery\Mock;
 use SDK\Base\Exceptions\ResponseException;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use SDK\Base\Exceptions\ArgumentsException;
+use SDK\Base\Exceptions\UnsupportedMimeType;
 use SDK\Base\Exceptions\UrlParametersException;
 use Illuminate\Validation\Factory as ValidationFactory;
+use SDK\Base\Parsers\HtmlParser;
+use SDK\Base\Parsers\JsonParser;
+use SDK\Base\Parsers\Parser;
 
 abstract class Action implements FakeableAction
 {
@@ -43,6 +47,15 @@ abstract class Action implements FakeableAction
      * @var Response
      */
     protected $response = null;
+
+    /**
+     * Supported parsers
+     * @var array
+     */
+    protected $parsers = [
+        JsonParser::class,
+        HtmlParser::class
+    ];
 
 
     /**
@@ -127,6 +140,11 @@ abstract class Action implements FakeableAction
     {
         $this->context = $context;
         $this->cache = $cache;
+
+        if(!is_null($this->context->getApiVersion()))
+        {
+            $this->url_params['api_version'] = $this->context->getApiVersion();
+        }
     }
 
     public static function fake($context, $cache, $responseStatusCode, $responseJsonBody){
@@ -280,28 +298,40 @@ abstract class Action implements FakeableAction
 
     /**
      * That function must return an array, to be validated against response_params_rules.
-     * TODO: add missing content types
      *
      * @param $mimetype
      * @param $body
      * @throws \Exception
      * @return array
      */
-    private function parseRawBody($mimetype, $body)
+    protected function parseRawBody($mimetype, $body)
     {
-        switch($mimetype){
-            case 'application/json':
-            case 'application/x-javascript':
-            case 'text/x-json':
-            case 'text/javascript':
-            case 'text/x-javascript':
-                return json_decode($body, true);
-            case 'text/html':
-                return null;
 
-            default:
-                throw new \Exception("Wrong body content type: $mimetype");
+        $parser = $this->getParser($mimetype);
+
+        return $parser->parse($body);
+
+    }
+
+    /**
+     * Return the parser for the received mimetype
+     *
+     * @param $mimetype
+     * @return Parser
+     * @throws UnsupportedMimeType
+     */
+    protected function getParser($mimetype)
+    {
+
+        foreach ($this->parsers as $parser)
+        {
+            if($parser::isInstance($mimetype)) {
+                return new $parser;
+            }
         }
+
+        throw new UnsupportedMimeType($mimetype);
+
     }
 
     /**

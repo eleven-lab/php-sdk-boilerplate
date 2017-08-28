@@ -3,7 +3,7 @@
 return [
     # Available modes: sandbox, live
     'mode'          => 'sandbox',
-    'api_version'   => 'v1',
+    'api_version'   => null,
     'timeout'       => 20,
     'cache_driver'  => 'file',
     'verify_callbacks' => true,

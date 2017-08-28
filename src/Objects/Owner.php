@@ -22,13 +22,4 @@ class Owner extends Object
 
     }
 
-    public static function getRelations()
-    {
-
-        return [
-            'owner' => Owner::class
-        ];
-
-    }
-
 }

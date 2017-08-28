@@ -27,7 +27,7 @@ class Kitten extends Object
      * @var array
      */
     protected $dates = [
-        'created_at'
+        'date_of_birth'
     ];
 
     public static function getValidationRules($parent = '')

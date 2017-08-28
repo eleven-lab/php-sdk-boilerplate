@@ -2,10 +2,6 @@
 
 namespace SDK\Base\Exceptions;
 
-/**
- * Class APIConnectionException
- * @package itTaxi\Exceptions
- */
 class ConnectionException extends BaseException
 {
     protected $statusCode;

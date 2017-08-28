@@ -1,9 +1,5 @@
 <?php namespace SDK\Base\Exceptions;
 
-/**
- * Class CallbackVerificationException
- * @package itTaxi\SDK\Exceptions
- */
 class CallbackVerificationException extends BaseException
 {
     protected $message = "Callback verification failed";
