@@ -4,10 +4,6 @@ use SDK\Base\Exceptions\BaseException;
 use Illuminate\Contracts\Cache\Repository;
 use SDK\Base\Exceptions\ArgumentsException;
 
-/**
- * Class API
- * @package itTaxi
- */
 class Factory
 {
     /**

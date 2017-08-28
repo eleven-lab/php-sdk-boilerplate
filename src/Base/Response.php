@@ -5,10 +5,6 @@ namespace SDK\Base;
 use GuzzleHttp\Psr7\Response as Psr7Response;
 use itTaxi\SDK\Exceptions\ResponseException;
 
-/**
- * Class APIResponse
- * @package itTaxi\API
- */
 class Response
 {
     /**

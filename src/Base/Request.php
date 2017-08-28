@@ -12,10 +12,6 @@ use itTaxi\SDK\Exceptions\BaseException;
 use itTaxi\SDK\Exceptions\ResponseException;
 use itTaxi\SDK\Exceptions\ConnectionException;
 
-/**
- * Class Request
- * @package itTaxi\SDK\Base
- */
 class Request implements FakeableRequest
 {
     /**

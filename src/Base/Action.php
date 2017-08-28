@@ -15,16 +15,6 @@ use SDK\Base\Exceptions\ArgumentsException;
 use SDK\Base\Exceptions\UrlParametersException;
 use Illuminate\Validation\Factory as ValidationFactory;
 
-/**
- * Class Action
- *
- * The rationale behind that class is:
- * - here we implement all the behaviors needed for request building and handling
- * - that class must be implemented from a APIEndpoint class, that must give all the common configurations for all the endpoints
- * - each endpoint must extend APIEndpoint and define its specific information like method, endpoint,
- *
- * @package itTaxi\SDK\Base
- */
 abstract class Action implements FakeableAction
 {
     /**

@@ -1,9 +1,5 @@
 <?php namespace SDK\Base;
 
-/**
- * Class ApiContext
- * @package SDK\API\Connection
- */
 abstract class ApiContext
 {
     /**

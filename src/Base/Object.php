@@ -5,10 +5,6 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
-/**
- * Class APIObject
- * @package itTaxi\API
- */
 abstract class Object implements Parsable, Relationable, SelfValidates, Arrayable, \ArrayAccess
 {
 
