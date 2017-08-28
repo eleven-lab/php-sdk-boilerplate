@@ -179,7 +179,7 @@ abstract class Action implements FakeableAction
     public function hasUrlParameter($key)
     {
 
-        return Arr::has($this->url_params, [$key]);
+        return in_array($key, $this->url_params, true);
 
     }
 
@@ -363,7 +363,7 @@ abstract class Action implements FakeableAction
             $this->context->getTimeout(),
             $this->getPayloadType(),
             $this->getMethod(),
-            $this->getEndpoint(),
+            $this->buildUrl(),
             $this->getHeaders(),
             $this->buildPayload(),
             $this->getAuthenticateCallable(),
@@ -405,14 +405,13 @@ abstract class Action implements FakeableAction
     public function __get($key)
     {
 
-        if(!method_exists($this, 'get' . Str::studly($key))) {
+        $method = 'get' . Str::studly($key);
+        if(method_exists($this, $method)) {
 
+            return $this->$method();
+
+        }else if($this->hasUrlParameter($key)){
             return $this->getUrlParameter($key);
-
-        }else{
-
-            return $this->$key();
-
         }
 
     }
@@ -427,11 +426,16 @@ abstract class Action implements FakeableAction
     public function __set($key, $value)
     {
 
-        if(!method_exists($this, 'set' . Str::studly($key)) && $this->hasUrlParameter($key)) {
+        $method = 'set' . Str::studly($key);
+        if(method_exists($this, $method)) {
+            $this->setUrlParameter($key, $this->$method($value));
+        }else if($this->hasUrlParameter($key)){
             $this->setUrlParameter($key, $value);
-        }else{
+        }else {
             throw new \Exception("Undefined property '$key' in class " . get_class($this));
         }
+
+        return;
 
     }
 }

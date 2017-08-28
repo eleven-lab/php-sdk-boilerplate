@@ -1,16 +1,14 @@
 <?php namespace SDK\Base;
 
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
-use itTaxi\SDK\Exceptions\ArgumentsException;
 use Psr\Http\Message\RequestInterface;
-use itTaxi\SDK\Exceptions\BaseException;
-use itTaxi\SDK\Exceptions\ResponseException;
-use itTaxi\SDK\Exceptions\ConnectionException;
+use SDK\Base\Exceptions\BaseException;
+use SDK\Base\Exceptions\ResponseException;
+use SDK\Base\Exceptions\ConnectionException;
 
 class Request implements FakeableRequest
 {
@@ -172,7 +170,6 @@ class Request implements FakeableRequest
     public function run()
     {
         $this->client = $this->buildClient();
-
         $start_time = round(microtime(true) * 1000);
 
         try {

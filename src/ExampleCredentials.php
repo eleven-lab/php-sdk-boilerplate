@@ -1,6 +1,6 @@
 <?php
 
-namespace itTaxi\SDK;
+namespace SDK;
 
 
 use SDK\Base\Credentials;

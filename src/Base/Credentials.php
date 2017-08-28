@@ -32,7 +32,7 @@ class Credentials
     public function getUsername()
     {
 
-        return $this->getUsername();
+        return $this->username;
 
     }
 

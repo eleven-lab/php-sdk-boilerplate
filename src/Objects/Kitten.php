@@ -11,6 +11,7 @@ class Kitten extends Object
      * @var array
      */
     protected $attributes = [
+        'id' => null,
         'name' => null,
         'color' => null,
         'age' => null,

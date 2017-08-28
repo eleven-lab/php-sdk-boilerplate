@@ -1,14 +1,14 @@
-<?php namespace itTaxi\SDK;
+<?php namespace SDK;
 
 use SDK\Base\ApiContext as BaseApiContext;
 
-/**
- * Class ApiContext
- * @package itTaxi\API\Connection
- */
 class ExampleApiContext extends BaseApiContext
 {
 
+    /**
+     * @param array $config
+     * @return Base\Credentials|ExampleCredentials
+     */
     protected function buildCredentials(array $config)
     {
 

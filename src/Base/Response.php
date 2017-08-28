@@ -3,7 +3,7 @@
 namespace SDK\Base;
 
 use GuzzleHttp\Psr7\Response as Psr7Response;
-use itTaxi\SDK\Exceptions\ResponseException;
+use SDK\Base\Exceptions\ResponseException;
 
 class Response
 {

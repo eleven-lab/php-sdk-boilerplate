@@ -13,7 +13,7 @@ return [
     ],
 
     'live'      => [
-        'base_url'      => 'https://example.com/api',
+        'base_url'      => 'https://my-json-server.typicode.com/eleven-lab/php-sdk-boilerplate',
         'credentials' => [
             'user' => 'user',
             'password' => 'password'
@@ -21,10 +21,10 @@ return [
     ],
 
     'sandbox'   => [
-        'base_url'       => 'https://sandbox.example.com/api',
+        'base_url'       => 'https://my-json-server.typicode.com/eleven-lab/php-sdk-boilerplate',
         'credentials' => [
-            'user' => 'user',
-            'password' => 'password'
+            'client_id' => 'user',
+            'secret' => 'password'
         ]
     ]
 ];
