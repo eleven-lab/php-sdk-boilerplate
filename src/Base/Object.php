@@ -24,6 +24,11 @@ abstract class Object implements Parsable, Relationable, SelfValidates, Arrayabl
      */
     protected $dates = [];
 
+    /**
+     * @var string
+     */
+    protected $dateFormat = 'Y-m-d H:i:s';
+
 
     /**
      * @param array $attributes
@@ -114,6 +119,8 @@ abstract class Object implements Parsable, Relationable, SelfValidates, Arrayabl
                             return $value->toArray($stripEmpty);
                         }, $value);
                 $arr[$attribute] = $parsedRelation;
+            }else if(in_array($value, $this->dates, true)) {
+                $arr[$attribute] = $this->formatDate($this->$attribute);
             }else{
                 $arr[$attribute] = $value;
             }
@@ -224,6 +231,28 @@ abstract class Object implements Parsable, Relationable, SelfValidates, Arrayabl
         return null;
     }
 
+    protected function castDate($value)
+    {
+
+        if(is_null($value)) return null;
+        if(is_integer($value)) return Carbon::createFromTimestamp($value);
+        if(is_string($value)) return Carbon::parse($value);
+
+        return null;
+    }
+
+    protected function formatDate($value)
+    {
+
+        if(is_null($value)) return '';
+        if($value instanceof Carbon) return $value->format($this->dateFormat);
+
+        $casted = $this->castDate($value);
+
+        return !$casted ?: $casted->format($this->dateFormat);
+
+    }
+
     public function __call($method, $args)
     {
 
@@ -259,7 +288,7 @@ abstract class Object implements Parsable, Relationable, SelfValidates, Arrayabl
              *  If it is a date we will cast it to a Carbon object
              */
             if(in_array($key, $this->dates, true)){
-                return Carbon::createFromTimestamp($this->attributes[$key]);
+                return $this->castDate($this->attributes[$key]);
             }
 
             return $this->attributes[$key];

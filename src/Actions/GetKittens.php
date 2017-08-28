@@ -38,6 +38,27 @@ class GetKittens extends Action
     }
 
     /**
+     * Leaf classes must override that Attribute with the validation rules for the request body parameters
+     *
+     * @return array
+     */
+    protected function getRequestParamsRules()
+    {
+        return [];
+    }
+
+    /**
+     * Leaf classes must override this function with the validation rules for the request endpoint
+     *
+     * @return array
+     */
+    protected function getUrlParametersRules()
+    {
+        return [];
+    }
+
+
+    /**
      * Parse the response, should be useful to instantiate an object.
      * @param $response
      * @return Kitten

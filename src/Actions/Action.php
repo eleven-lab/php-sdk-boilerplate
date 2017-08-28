@@ -8,30 +8,6 @@ use GuzzleHttp\Psr7\Request as Psr7Request;
 abstract class Action extends BaseAction
 {
 
-
-    /**
-     * Leaf classes must override that attribute with the validation rules for the request parameters
-     * @return array
-     */
-    protected function getRequestParamsRules()
-    {
-        return [];
-    }
-
-    protected function getUrlParametersRules()
-    {
-        return [];
-    }
-
-    /**
-     * Leaf classes must override that attribute with the validation rules for the response parameters
-     * @return array
-     */
-    protected function getResponseParamsRules()
-    {
-        return [];
-    }
-
     /**
      * @return array
      */
@@ -45,6 +21,7 @@ abstract class Action extends BaseAction
 
     /**
      * Take a request and add authentication data
+     *
      * @param Psr7Request $request
      * @return mixed $request
      */

@@ -5,12 +5,28 @@ use SDK\Base\Object;
 class Kitten extends Object
 {
 
+    /**
+     * Object attributes, initialized with their default values
+     *
+     * @var array
+     */
     protected $attributes = [
         'name' => null,
         'color' => null,
         'age' => null,
         'gender' => null,
-        'vaccinated' => null
+        'vaccinated' => null,
+        'owner' => null,
+        'date_of_birth' => -1,
+    ];
+
+    /**
+     * Here you can specify dates attributes, that get casted automatically
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at'
     ];
 
     public static function getValidationRules($parent = '')
